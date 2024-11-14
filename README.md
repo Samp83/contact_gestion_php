@@ -1,6 +1,5 @@
 # contact_gestion_php
  
-# Application de Gestion des Contacts
 
 Cette application PHP permet de gérer une liste de contacts avec les fonctionnalités suivantes :
 - Ajouter un contact
