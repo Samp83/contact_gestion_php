@@ -1,12 +1,7 @@
 <?php
-
 require_once 'db.php';
 
-
-$pdo = connectDB();
-$stmt = $pdo->prepare("SELECT * FROM contacts");
-$stmt->execute();
-$contacts = $stmt->fetchAll();
+$contacts = getAllContacts();
 ?>
 
 <!DOCTYPE html>

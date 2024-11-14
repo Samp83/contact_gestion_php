@@ -14,4 +14,39 @@ function connectDB() {
         die("Erreur de connexion : " . $e->getMessage());
     }
 }
+
+
+function addContact($nom, $email, $telephone) {
+    $pdo = connectDB();
+    $stmt = $pdo->prepare("INSERT INTO contacts (nom, email, telephone) VALUES (?, ?, ?)");
+    return $stmt->execute([$nom, $email, $telephone]);
+}
+
+
+function getContact($id) {
+    $pdo = connectDB();
+    $stmt = $pdo->prepare("SELECT * FROM contacts WHERE id = ?");
+    $stmt->execute([$id]);
+    return $stmt->fetch();
+}
+
+
+function updateContact($id, $nom, $email, $telephone) {
+    $pdo = connectDB();
+    $stmt = $pdo->prepare("UPDATE contacts SET nom = ?, email = ?, telephone = ? WHERE id = ?");
+    return $stmt->execute([$nom, $email, $telephone, $id]);
+}
+
+function deleteContact($id) {
+    $pdo = connectDB();
+    $stmt = $pdo->prepare("DELETE FROM contacts WHERE id = ?");
+    return $stmt->execute([$id]);
+}
+
+
+function getAllContacts() {
+    $pdo = connectDB();
+    $stmt = $pdo->query("SELECT * FROM contacts");
+    return $stmt->fetchAll();
+}
 ?>

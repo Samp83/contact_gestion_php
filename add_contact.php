@@ -1,5 +1,4 @@
 <?php
-
 require_once 'db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -7,29 +6,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'] ?? '';
     $telephone = $_POST['telephone'] ?? '';
 
-    
     if (!empty($nom) && !empty($email) && !empty($telephone)) {
-        try {
-            $pdo = connectDB();
-
-            
-            $stmt = $pdo->prepare("INSERT INTO contacts (nom, email, telephone) VALUES (?, ?, ?)");
-
-            
-            $stmt->execute([$nom, $email, $telephone]);
-
-            
+        if (addContact($nom, $email, $telephone)) {
             header("Location: index.php");
-            exit(); 
-        } catch (PDOException $e) {
-            echo "<p>Erreur : " . $e->getMessage() . "</p>";
+            exit();
+        } else {
+            echo "<p>Erreur lors de l'ajout du contact.</p>";
         }
     } else {
         echo "<p>Veuillez remplir tous les champs.</p>";
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
