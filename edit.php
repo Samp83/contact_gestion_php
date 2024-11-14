@@ -19,11 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!empty($nom) && !empty($email) && !empty($telephone)) {
         try {
-
+  
             $stmt = $pdo->prepare("UPDATE contacts SET nom = ?, email = ?, telephone = ? WHERE id = ?");
             $stmt->execute([$nom, $email, $telephone, $id]);
 
-            echo "<p>Contact modifié avec succès !</p>";
+
+            header("Location: index.php");
+            exit(); 
         } catch (PDOException $e) {
             echo "<p>Erreur : " . $e->getMessage() . "</p>";
         }
